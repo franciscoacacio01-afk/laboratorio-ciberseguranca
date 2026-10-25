@@ -1,0 +1,14 @@
+# Arquivos locais de credenciais do laboratório
+/senhas-lab.txt
+
+# Segredos e configurações locais
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Arquivos temporários
+__pycache__/
+*.pyc
+.DS_Store

@@ -1,0 +1,70 @@
+PROJETO: Auditoria de Segurança em Laboratório
+ALVO: Metasploitable 2
+IP: 192.168.56.102
+AMBIENTE: Máquinas virtuais em laboratório
+
+1. RECONHECIMENTO COM NMAP
+
+FTP:
+- Porta 21 aberta
+- Serviço vsFTPd 2.3.4
+- Login anônimo aceito (código FTP 230)
+- Listagem da raiz concluída (código 226)
+- Nenhum nome de arquivo retornado na raiz
+
+HTTP:
+- Porta 80 aberta
+- Apache 2.2.8 (Ubuntu)
+- PHP 5.2.4
+- Página inicial identificada como Metasploitable2 - Linux
+- DVWA acessível em /dvwa/login.php
+
+SMB:
+- Portas 139 e 445 abertas
+- Samba 3.0.20-Debian
+- Enumeração anônima aceita
+- Compartilhamento tmp listável anonimamente
+- Nmap reportou READ/WRITE anônimo em tmp e IPC$
+- Permissões de escrita devem ser confirmadas separadamente
+  antes de concluir que arquivos podem ser modificados
+
+2. TESTE MANUAL DO DVWA
+
+Nível de segurança: High
+Credenciais válidas: login realizado com sucesso
+Credenciais incorretas:
+- Mensagem: Username and/or password incorrect.
+- Resultado: tentativa rejeitada
+Bloqueio após falhas: não observado nos testes realizados
+Limitação de tentativas: não verificada conclusivamente
+Método: testes manuais controlados
+
+3. ANÁLISE
+
+- A aplicação aceitou as credenciais válidas de teste.
+- A aplicação rejeitou as credenciais incorretas.
+- Não foi observado bloqueio durante os testes manuais.
+- Os resultados não comprovam, por si só, a ausência de
+  mecanismos de limitação de tentativas.
+
+4. RECOMENDAÇÕES
+
+- Desabilitar FTP anônimo quando não for necessário.
+- Restringir compartilhamentos SMB e aplicar menor privilégio.
+- Atualizar serviços e componentes legados.
+- Aplicar limitação de tentativas e monitoramento de autenticação.
+- Usar senhas fortes e remover credenciais padrão.
+- Repetir testes após aplicar medidas de correção.
+
+5. EVIDÊNCIAS
+
+- evidencias/01_host.txt (se gerado)
+- evidencias/02_portas.txt (se gerado)
+- evidencias/03_servicos.txt (se gerado)
+- evidencias/ftp-enumeracao.txt
+- evidencias/ftp-diagnostico.txt
+- evidencias/http-enumeracao.txt
+- evidencias/smb-enumeracao.txt
+- evidencias/smb-compartilhamentos.txt
+- evidencias/smb-shares-nmap.txt
+- evidencias/smb-tmp-listagem.txt

@@ -1,0 +1,160 @@
+PROJETO: Auditoria de Segurança em Laboratório
+FERRAMENTA: Medusa 2.3
+ALVO: Metasploitable2
+IP: 192.168.56.102
+SERVIÇO INICIAL: FTP
+PORTA: 21
+
+1. PREPARAÇÃO
+- Medusa instalado e executável no Kali Linux.
+- Módulo FTP disponível, versão 2.1.
+- Modo NORMAL identificado como padrão.
+- Opções do módulo consultadas com medusa -M ftp -q.
+
+2. ESCOPO
+- Testes restritos à máquina virtual Metasploitable2.
+- Sem testes contra sistemas externos.
+- Resultados e evidências serão registrados neste diretório.
+
+3. PRÓXIMA VERIFICAÇÃO
+- Confirmar o serviço FTP.
+- Confirmar o comportamento do login anônimo.
+- Avaliar os resultados antes de qualquer teste adicional.
+
+4. TESTE CONTROLADO DE AUTENTICAÇÃO FTP
+
+Data: 2026-10-23
+Alvo: 192.168.56.102
+Porta: 21/TCP
+Ferramenta: Medusa 2.3
+Módulo: FTP
+Concorrência: 1
+Credenciais testadas: 1 par
+
+Resultado:
+- Usuário: msfadmin
+- Senha: msfadmin
+- Resposta do Medusa: ACCOUNT FOUND / SUCCESS
+- Interpretação: autenticação FTP aceita pelo servidor.
+
+Observação:
+O teste utilizou um único par de credenciais no laboratório.
+O resultado comprova autenticação no FTP, não privilégios
+administrativos no sistema operacional.
+
+Evidências:
+- medusa-ftp-teste.txt
+- medusa-relatorio.txt
+5. TESTE CONTROLADO DE AUTENTICAÇÃO SMB
+
+Data: 2026-10-23
+Alvo: 192.168.56.102
+Portas: 139/TCP e 445/TCP
+Ferramenta: Medusa 2.3
+Módulo: smbnt 3.0
+Concorrência: 1
+Credenciais testadas: 1 par
+
+Resultado:
+- Usuário: msfadmin
+- Senha: msfadmin
+- Resposta: SUCCESS (ADMIN$ - Access Allowed)
+- Interpretação: autenticação aceita e acesso ao ADMIN$
+  indicado como permitido pelo módulo.
+
+Evidências:
+- medusa-smb-opcoes.txt
+- medusa-smb-reconhecimento.txt
+- medusa-smb-anonimo.txt
+- medusa-smb-tmp-listagem.txt
+- medusa-smb-teste.txt
+
+Observação:
+O resultado indica acesso ao compartilhamento administrativo,
+mas não constitui, isoladamente, uma auditoria completa dos
+privilégios no sistema operacional.
+
+7. TESTE DE LEITURA DO COMPARTILHAMENTO PESSOAL SMB
+
+Data: 2026-10-24
+Alvo: 192.168.56.102
+Ferramenta: smbclient
+Compartilhamento: msfadmin
+Conta: msfadmin
+Ação: listagem do conteúdo (ls), sem modificar arquivos
+
+Resultado:
+- A listagem foi retornada com sucesso.
+- Foram observados arquivos ocultos e diretórios pessoais.
+- Entre os nomes listados estão .mysql_history, .rhosts,
+  .ssh, .bash_history e o diretório vulnerable.
+
+Impacto potencial:
+Arquivos de histórico e configurações pessoais podem conter
+informações sensíveis. O conteúdo desses arquivos não foi
+consultado neste teste.
+
+Conclusão:
+A conta autenticada possui permissão para listar o conteúdo
+do compartilhamento pessoal. Isso não comprova, isoladamente,
+privilégios administrativos no sistema operacional.
+
+Evidência:
+- medusa-smb-msfadmin-listagem.txt
+
+
+7. TESTE DE LEITURA DO COMPARTILHAMENTO PESSOAL SMB
+
+Data: 2026-10-24
+Alvo: 192.168.56.102
+Ferramenta: smbclient
+Compartilhamento: msfadmin
+Conta: msfadmin
+Ação: listagem do conteúdo (ls), sem modificar arquivos
+
+Resultado:
+- A listagem foi retornada com sucesso.
+- Foram observados arquivos ocultos e diretórios pessoais.
+- Entre os nomes listados estão .mysql_history, .rhosts,
+  .ssh, .bash_history e o diretório vulnerable.
+
+Impacto potencial:
+Arquivos de histórico e configurações pessoais podem conter
+informações sensíveis. O conteúdo desses arquivos não foi
+consultado neste teste.
+
+Conclusão:
+A conta autenticada possui permissão para listar o conteúdo
+do compartilhamento pessoal. Isso não comprova, isoladamente,
+privilégios administrativos no sistema operacional.
+
+Evidência:
+- medusa-smb-msfadmin-listagem.txt
+
+
+8. TESTE DE LISTAGEM DO COMPARTILHAMENTO SMB OPT
+Data: 2026-10-24
+Alvo: 192.168.56.102
+Compartilhamento: opt
+Ferramenta: smbclient
+Usuário: msfadmin
+Operação: listagem de diretório (ls)
+
+Resultado:
+- A listagem do compartilhamento foi retornada com sucesso.
+- Foram observadas as entradas 4613.jsvc_up, .ICE-unix,
+  .X11-unix e .X0-lock.
+- Nenhum conteúdo foi aberto ou modificado.
+
+Impacto potencial:
+A listagem pode revelar informações sobre a estrutura do
+compartilhamento. O impacto real depende das permissões e
+do conteúdo acessível.
+
+Conclusão:
+A conta msfadmin conseguiu listar o compartilhamento opt.
+Isso não comprova acesso de leitura ou escrita a todos os
+arquivos nem privilégios administrativos no sistema operacional.
+
+Evidência:
+- medusa-smb-opt-listagem.txt

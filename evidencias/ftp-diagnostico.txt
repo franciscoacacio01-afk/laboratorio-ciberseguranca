@@ -1,0 +1,29 @@
+*   Trying 192.168.56.102:21...
+* Established connection to 192.168.56.102 (192.168.56.102 port 21) from 192.168.56.101 port 55842
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0< 220 (vsFTPd 2.3.4)
+> USER anonymous
+< 331 Please specify the password.
+> PASS lab@example.com
+< 230 Login successful.
+> PWD
+< 257 "/"
+* Entry path is '/'
+* Request has same path as previous transfer
+> EPSV
+* Connect data stream passively
+  0      0   0      0   0      0      0      0                              0< 229 Entering Extended Passive Mode (|||24955|).
+* Connecting to 192.168.56.102 (192.168.56.102) port 24955
+*   Trying 192.168.56.102:24955...
+* Established 2nd connection to 192.168.56.102 (192.168.56.102 port 24955) from 192.168.56.101 port 36318
+> TYPE A
+< 200 Switching to ASCII mode.
+> NLST
+< 150 Here comes the directory listing.
+* Maxdownload = -1
+{ [0 bytes data]
+  0      0   0      0   0      0      0      0                              0  0      0   0      0   0      0      0      0                              0* Remembering we are in directory ""
+< 226 Directory send OK.
+  0      0   0      0   0      0      0      0                              0
+* Connection #0 to host 192.168.56.102:21 left intact

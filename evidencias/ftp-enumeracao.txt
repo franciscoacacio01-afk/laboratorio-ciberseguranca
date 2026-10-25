@@ -1,0 +1,12 @@
+# Nmap 7.99 scan initiated Thu Oct 22 22:08:28 2026 as: /usr/lib/nmap/nmap --privileged -Pn -p 21 --script ftp-anon -oN evidencias/ftp-enumeracao.txt 192.168.56.102
+mass_dns: warning: Unable to open /etc/resolv.conf. Try using --system-dns or specify valid servers with --dns-servers: No such file or directory (2)
+mass_dns: warning: Unable to determine any DNS servers. Reverse DNS is disabled. Try using --system-dns or specify valid servers with --dns-servers
+Nmap scan report for 192.168.56.102
+Host is up (0.00024s latency).
+
+PORT   STATE SERVICE
+21/tcp open  ftp
+|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+MAC Address: 08:00:27:02:43:90 (Oracle VirtualBox virtual NIC)
+
+# Nmap done at Thu Oct 22 22:08:29 2026 -- 1 IP address (1 host up) scanned in 0.58 seconds

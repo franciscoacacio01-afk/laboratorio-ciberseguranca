@@ -1,0 +1,9 @@
+Password for [WORKGROUP\msfadmin]:
+  .                                  DR        0  Fri Oct 23 00:11:45 2026
+  ..                                 DR        0  Sun May 20 14:36:12 2012
+  4613.jsvc_up                        R        0  Thu Oct 22 21:10:38 2026
+  .ICE-unix                         DHR        0  Thu Oct 22 21:10:20 2026
+  .X11-unix                         DHR        0  Thu Oct 22 21:10:27 2026
+  .X0-lock                           HR       11  Thu Oct 22 21:10:27 2026
+
+		7282168 blocks of size 1024. 5437040 blocks available
